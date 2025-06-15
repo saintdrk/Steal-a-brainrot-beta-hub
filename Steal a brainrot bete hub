@@ -1,0 +1,557 @@
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+
+local RunService = game:GetService("RunService")
+
+local UIS = game:GetService("UserInputService")
+
+-- Create main ScreenGui
+
+local screenGui = Instance.new("ScreenGui")
+
+screenGui.Name = "FullUI"
+
+screenGui.ResetOnSpawn = false
+
+screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Fancy Loading Screen --
+
+local loadingFrame = Instance.new("Frame", screenGui)
+
+loadingFrame.Size = UDim2.new(0.4, 0, 0.15, 0)
+
+loadingFrame.Position = UDim2.new(0.3, 0, 0.425, 0)
+
+loadingFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+
+loadingFrame.BorderSizePixel = 0
+
+loadingFrame.ClipsDescendants = true
+
+loadingFrame.AnchorPoint = Vector2.new(0, 0)
+
+Instance.new("UICorner", loadingFrame)
+
+-- Shadow behind loading frame
+
+local loadingShadow = Instance.new("ImageLabel", loadingFrame)
+
+loadingShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+
+loadingShadow.Position = UDim2.new(0.5, 3, 0.5, 3)
+
+loadingShadow.Size = UDim2.new(1, 6, 1, 6)
+
+loadingShadow.BackgroundTransparency = 1
+
+loadingShadow.Image = "rbxassetid://1316045217"
+
+loadingShadow.ImageColor3 = Color3.new(0, 0, 0)
+
+loadingShadow.ImageTransparency = 0.6
+
+loadingShadow.ZIndex = loadingFrame.ZIndex - 1
+
+-- Loading Text
+
+local loadingText = Instance.new("TextLabel", loadingFrame)
+
+loadingText.Text = "Loading Catt's hub. Please wait."
+
+loadingText.Size = UDim2.new(1, -20, 0.4, 0)
+
+loadingText.Position = UDim2.new(0, 10, 0, 10)
+
+loadingText.TextColor3 = Color3.fromRGB(220, 220, 220)
+
+loadingText.Font = Enum.Font.GothamBold
+
+loadingText.TextSize = 24
+
+loadingText.TextWrapped = true
+
+loadingText.BackgroundTransparency = 1
+
+-- Percentage Text below loadingText
+
+local percentText = Instance.new("TextLabel", loadingFrame)
+
+percentText.Text = "0%"
+
+percentText.Size = UDim2.new(1, -20, 0.25, 0)
+
+percentText.Position = UDim2.new(0, 10, 0.4, 0)
+
+percentText.TextColor3 = Color3.fromRGB(170, 170, 255)
+
+percentText.Font = Enum.Font.GothamSemibold
+
+percentText.TextSize = 20
+
+percentText.BackgroundTransparency = 1
+
+percentText.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Progress Bar Background
+
+local progressBarBack = Instance.new("Frame", loadingFrame)
+
+progressBarBack.Size = UDim2.new(0.9, 0, 0.25, 0)
+
+progressBarBack.Position = UDim2.new(0.05, 0, 0.7, 0)
+
+progressBarBack.BackgroundColor3 = Color3.fromRGB(50, 50, 65)
+
+progressBarBack.BorderSizePixel = 0
+
+Instance.new("UICorner", progressBarBack)
+
+-- Progress Bar Fill
+
+local progressBar = Instance.new("Frame", progressBarBack)
+
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+
+progressBar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+
+Instance.new("UICorner", progressBar)
+
+-- Animate progress bar over 30 seconds, update percent text
+
+local duration = 30
+
+local totalFrames = duration * 60
+
+for i = 1, totalFrames do
+
+	local progress = i / totalFrames	progressBar.Size = UDim2.new(progress, 0, 1, 0)
+
+	percentText.Text = tostring(math.floor(progress * 100)).."%"
+
+	RunService.RenderStepped:Wait()
+
+end
+
+-- Remove loading UI
+
+loadingFrame:Destroy()
+
+-- Background (nature-themed)
+
+local Background = Instance.new("ImageLabel", screenGui)
+
+Background.Size = UDim2.new(1, 0, 1, 0)
+
+Background.Image = "rbxassetid://15015012294"
+
+Background.BackgroundTransparency = 1
+
+Background.ImageTransparency = 0.35
+
+-- Toggle Button (Changed text to "C", fancy style)
+
+local toggleButton = Instance.new("TextButton", screenGui)
+
+toggleButton.Text = "C"
+
+toggleButton.Size = UDim2.new(0, 50, 0, 50)
+
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+
+toggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+
+toggleButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+
+toggleButton.Font = Enum.Font.GothamBold
+
+toggleButton.TextScaled = true
+
+toggleButton.AutoButtonColor = false
+
+toggleButton.ClipsDescendants = true
+
+Instance.new("UICorner", toggleButton)
+
+-- Shadow for toggle button
+
+local toggleShadow = Instance.new("ImageLabel", toggleButton)
+
+toggleShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+
+toggleShadow.Position = UDim2.new(0.5, 2, 0.5, 2)
+
+toggleShadow.Size = UDim2.new(1, 4, 1, 4)
+
+toggleShadow.BackgroundTransparency = 1
+
+toggleShadow.Image = "rbxassetid://1316045217" -- subtle shadow texture
+
+toggleShadow.ImageColor3 = Color3.new(0,0,0)
+
+toggleShadow.ImageTransparency = 0.6
+
+toggleShadow.ZIndex = toggleButton.ZIndex - 1
+
+-- Main Frame fancy styling
+
+local Frame = Instance.new("Frame", screenGui)
+
+Frame.Size = UDim2.new(0, 340, 0, 320)
+
+Frame.Position = UDim2.new(0, 20, 0.2, 0)
+
+Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+
+Frame.BorderSizePixel = 0
+
+Frame.ClipsDescendants = true
+
+Frame.Visible = false
+
+Instance.new("UICorner", Frame)
+
+-- Gradient background for Frame
+
+local grad = Instance.new("UIGradient", Frame)
+
+grad.Color = ColorSequence.new{
+
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(15, 15, 25)),
+
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(45, 45, 60)),
+
+}
+
+grad.Rotation = 90
+
+-- Shadow for Frame
+
+local frameShadow = Instance.new("ImageLabel", Frame)
+
+frameShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+
+frameShadow.Position = UDim2.new(0.5, 4, 0.5, 4)
+
+frameShadow.Size = UDim2.new(1, 8, 1, 8)
+
+frameShadow.BackgroundTransparency = 1
+
+frameShadow.Image = "rbxassetid://1316045217" -- subtle shadow texture
+
+frameShadow.ImageColor3 = Color3.new(0,0,0)
+
+frameShadow.ImageTransparency = 0.7
+
+frameShadow.ZIndex = Frame.ZIndex - 1
+
+-- Function to create fancy TextBoxes
+
+local function createTextBox(name, placeholder, yPos)
+
+	local box = Instance.new("TextBox", Frame)
+
+	box.Name = name
+
+	box.PlaceholderText = placeholder
+
+	box.Size = UDim2.new(0.6, 0, 0, 40)
+
+	box.Position = UDim2.new(0.05, 0, yPos, 0)
+
+	box.TextScaled = false
+
+	box.Font = Enum.Font.Gotham
+
+	box.TextColor3 = Color3.fromRGB(220, 220, 220)
+
+	box.PlaceholderColor3 = Color3.fromRGB(140, 140, 140)
+
+	box.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+
+	box.BorderSizePixel = 0
+
+	box.ClipsDescendants = true
+
+	Instance.new("UICorner", box)
+
+	return box
+
+end
+
+-- Function to create fancy buttons with hover effect
+
+local function createButton(name, text, yPos)
+
+	local button = Instance.new("TextButton", Frame)
+
+	button.Name = name
+
+	button.Text = text
+
+	button.Size = UDim2.new(0.3, 0, 0, 40)
+
+	button.Position = UDim2.new(0.65, 0, yPos, 0)
+
+	button.TextScaled = true
+
+	button.Font = Enum.Font.GothamSemibold
+
+	button.TextColor3 = Color3.fromRGB(220, 220, 220)
+
+	button.BackgroundColor3 = Color3.fromRGB(45, 45, 70)
+
+	button.BorderSizePixel = 0
+
+	button.ClipsDescendants = true
+
+	Instance.new("UICorner", button)
+
+	-- Hover effect
+
+	button.MouseEnter:Connect(function()
+
+		button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+
+		button.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+	end)
+
+	button.MouseLeave:Connect(function()
+
+		button.BackgroundColor3 = Color3.fromRGB(45, 45, 70)
+
+		button.TextColor3 = Color3.fromRGB(220, 220, 220)
+
+	end)
+
+	return button
+
+end
+
+-- UI Inputs
+
+local speedBox = createTextBox("SpeedBox", "Enter Speed", 0.05)
+
+local speedButton = createButton("SpeedButton", "Set", 0.05)
+
+local noclipButton = createButton("NoclipButton", "Noclip: OFF", 0.22)
+
+local flyButton = createButton("FlyButton", "Fly: OFF", 0.39)
+
+local jumpBox = createTextBox("JumpBox", "Jump Power", 0.56)
+
+local jumpButton = createButton("JumpButton", "Set", 0.56)
+
+-- Toggle UI
+
+toggleButton.MouseButton1Click:Connect(function()
+
+	Frame.Visible = not Frame.Visible
+
+end)
+
+-- Speed Control
+
+speedButton.MouseButton1Click:Connect(function()
+
+	local speed = tonumber(speedBox.Text)
+
+	local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
+
+	if speed and hum then
+
+		hum.WalkSpeed = speed
+
+	end
+
+end)
+
+-- Noclip toggle logic
+
+local noclipEnabled = false
+
+local noclipConn
+
+noclipButton.MouseButton1Click:Connect(function()
+
+	local char = LocalPlayer.Character
+
+	if not char then return end
+
+	noclipEnabled = not noclipEnabled
+
+	if noclipEnabled then
+
+		noclipButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0) -- green
+
+		noclipButton.Text = "Noclip: ON"
+
+		noclipConn = RunService.Stepped:Connect(function()
+
+			for _, part in ipairs(char:GetDescendants()) do
+
+				if part:IsA("BasePart") then
+
+					part.CanCollide = false
+
+				end
+
+			end
+
+		end)
+
+	else
+
+		noclipButton.BackgroundColor3 = Color3.fromRGB(45, 45, 70) -- reset to button base color
+
+		noclipButton.Text = "Noclip: OFF"
+
+		if noclipConn then noclipConn:Disconnect() noclipConn = nil end
+
+		for _, part in ipairs(char:GetDescendants()) do
+
+			if part:IsA("BasePart") then
+
+				part.CanCollide = true
+
+			end
+
+		end
+
+	end
+
+end)
+
+-- Fly toggle logic
+
+local flying = false
+
+local flyConn
+
+local flyBody
+
+flyButton.MouseButton1Click:Connect(function()
+
+	local char = LocalPlayer.Character
+
+	if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+
+	flying = not flying
+
+	if flying then
+
+		flyButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0) -- green
+
+		flyButton.Text = "Fly: ON"
+
+		local hrp = char.HumanoidRootPart
+
+		flyBody = Instance.new("BodyVelocity")
+
+		flyBody.Velocity = Vector3.new(0, 0, 0)
+
+		flyBody.MaxForce = Vector3.new(100000, 100000, 100000)
+
+		flyBody.P = 1250
+
+		flyBody.Parent = hrp
+
+		flyConn = RunService.RenderStepped:Connect(function()
+
+			local moveDir = char.Humanoid.MoveDirection
+
+			local flySpeed = 250 -- horizontal fly speed
+
+			local verticalSpeed = 50 -- vertical ascend speed
+
+			flyBody.Velocity = moveDir * flySpeed + Vector3.new(0, verticalSpeed, 0)
+
+		end)
+
+	else
+
+		flyButton.BackgroundColor3 = Color3.fromRGB(45, 45, 70) -- reset to button base color
+
+		flyButton.Text = "Fly: OFF"
+
+		if flyBody then flyBody:Destroy() flyBody = nil end
+
+		if flyConn then flyConn:Disconnect() flyConn = nil end
+
+	end
+
+end)
+
+-- Jump Power
+
+jumpButton.MouseButton1Click:Connect(function()
+
+	local jumpPower = tonumber(jumpBox.Text)
+
+	local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
+
+	if jumpPower and hum then
+
+		hum.UseJumpPower = true
+
+		hum.JumpPower = jumpPower
+
+	end
+
+end)
+
+-- Dragging (Mobile + PC)
+
+local dragging = false
+
+local dragInput, dragStart, startPos
+
+Frame.InputBegan:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+
+		dragging = true
+
+		dragStart = input.Position
+
+		startPos = Frame.Position
+
+		input.Changed:Connect(function()
+
+			if input.UserInputState == Enum.UserInputState.End then
+
+				dragging = false
+
+			end
+
+		end)
+
+	end
+
+end)
+
+Frame.InputChanged:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+
+		dragInput = input
+
+	end
+
+end)
+
+RunService.RenderStepped:Connect(function()
+
+	if dragging and dragInput then
+
+		local delta = dragInput.Position - dragStart
+
+		Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+
+	end
+
+end)
