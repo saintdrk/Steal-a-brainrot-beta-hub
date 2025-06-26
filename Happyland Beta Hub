@@ -1,0 +1,205 @@
+--// Services
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+--// ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "FullUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+--// Fancy Loading Frame (Draggable + Larger)
+local loadingFrame = Instance.new("Frame", screenGui)
+loadingFrame.Size = UDim2.new(0.45, 0, 0.25, 0)
+loadingFrame.Position = UDim2.new(0.275, 0, 0.375, 0)
+loadingFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 50)
+loadingFrame.BorderSizePixel = 0
+loadingFrame.ClipsDescendants = true
+loadingFrame.Active = true
+loadingFrame.Draggable = true
+Instance.new("UICorner", loadingFrame)
+
+local gradient = Instance.new("UIGradient", loadingFrame)
+gradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 85, 170))
+})
+gradient.Rotation = 45
+
+local shadow = Instance.new("ImageLabel", loadingFrame)
+shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+shadow.Position = UDim2.new(0.5, 3, 0.5, 3)
+shadow.Size = UDim2.new(1, 10, 1, 10)
+shadow.BackgroundTransparency = 1
+shadow.Image = "rbxassetid://1316045217"
+shadow.ImageColor3 = Color3.new(0, 0, 0)
+shadow.ImageTransparency = 0.7
+shadow.ZIndex = 0
+
+local loadingText = Instance.new("TextLabel", loadingFrame)
+loadingText.Text = "🚀 Loading Beta Hub..."
+loadingText.Size = UDim2.new(1, -20, 0.35, 0)
+loadingText.Position = UDim2.new(0, 10, 0, 10)
+loadingText.TextColor3 = Color3.fromRGB(230, 230, 255)
+loadingText.Font = Enum.Font.GothamBold
+loadingText.TextSize = 26
+loadingText.BackgroundTransparency = 1
+loadingText.TextXAlignment = Enum.TextXAlignment.Left
+
+local percentText = Instance.new("TextLabel", loadingFrame)
+percentText.Text = "0%"
+percentText.Size = UDim2.new(1, -20, 0.25, 0)
+percentText.Position = UDim2.new(0, 10, 0.4, 0)
+percentText.TextColor3 = Color3.fromRGB(0, 200, 255)
+percentText.Font = Enum.Font.GothamSemibold
+percentText.TextSize = 22
+percentText.BackgroundTransparency = 1
+percentText.TextXAlignment = Enum.TextXAlignment.Right
+
+local progressBarBack = Instance.new("Frame", loadingFrame)
+progressBarBack.Size = UDim2.new(0.9, 0, 0.2, 0)
+progressBarBack.Position = UDim2.new(0.05, 0, 0.75, 0)
+progressBarBack.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+progressBarBack.BorderSizePixel = 0
+Instance.new("UICorner", progressBarBack)
+
+local progressBar = Instance.new("Frame", progressBarBack)
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+Instance.new("UICorner", progressBar)
+
+-- Animate loading
+for i = 1, 100 do
+	progressBar.Size = UDim2.new(i / 100, 0, 1, 0)
+	percentText.Text = i .. "%"
+	RunService.RenderStepped:Wait()
+end
+
+loadingFrame:Destroy()
+
+-- Background image
+local background = Instance.new("ImageLabel", screenGui)
+background.Size = UDim2.new(1, 0, 1, 0)
+background.Image = "rbxassetid://15015012294"
+background.BackgroundTransparency = 1
+background.ImageTransparency = 0.35
+
+-- Toggle Button ("Beta Hub")
+local toggleButton = Instance.new("TextButton", screenGui)
+toggleButton.Text = "Beta hub"
+toggleButton.Size = UDim2.new(0, 50, 0, 50)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+toggleButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+toggleButton.Font = Enum.Font.GothamBold
+toggleButton.TextScaled = true
+toggleButton.AutoButtonColor = false
+Instance.new("UICorner", toggleButton)
+
+-- Fancy TELEPORT GUI
+local teleportFrame = Instance.new("Frame", screenGui)
+teleportFrame.Size = UDim2.new(0, 180, 0, 240)
+teleportFrame.Position = UDim2.new(0.05, 0, 0.5, 0)
+teleportFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+teleportFrame.BorderSizePixel = 0
+teleportFrame.Active = true
+teleportFrame.Draggable = true
+Instance.new("UICorner", teleportFrame)
+
+-- Shadow
+local shadow = Instance.new("ImageLabel", teleportFrame)
+shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+shadow.Position = UDim2.new(0.5, 2, 0.5, 2)
+shadow.Size = UDim2.new(1, 10, 1, 10)
+shadow.BackgroundTransparency = 1
+shadow.Image = "rbxassetid://1316045217"
+shadow.ImageColor3 = Color3.new(0, 0, 0)
+shadow.ImageTransparency = 0.75
+shadow.ZIndex = 0
+
+-- Header
+local header = Instance.new("Frame", teleportFrame)
+header.Size = UDim2.new(1, 0, 0, 30)
+header.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+header.BorderSizePixel = 0
+header.ZIndex = 2
+Instance.new("UICorner", header)
+
+local headerGradient = Instance.new("UIGradient", header)
+headerGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 85, 170))
+})
+headerGradient.Rotation = 45
+
+local headerText = Instance.new("TextLabel", header)
+headerText.Text = "Teleport Menu"
+headerText.Size = UDim2.new(1, 0, 1, 0)
+headerText.BackgroundTransparency = 1
+headerText.TextColor3 = Color3.fromRGB(255, 255, 255)
+headerText.Font = Enum.Font.GothamBold
+headerText.TextSize = 16
+headerText.ZIndex = 3
+
+-- Buttons container
+local buttonContainer = Instance.new("Frame", teleportFrame)
+buttonContainer.Size = UDim2.new(1, -10, 1, -40)
+buttonContainer.Position = UDim2.new(0, 5, 0, 35)
+buttonContainer.BackgroundTransparency = 1
+buttonContainer.ZIndex = 2
+
+local layout = Instance.new("UIListLayout", buttonContainer)
+layout.Padding = UDim.new(0, 6)
+layout.FillDirection = Enum.FillDirection.Vertical
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- Teleport Locations
+local teleportLocations = {
+	["🏪 711"] = Vector3.new(547, 5, 343),
+	["🎭 Dali"] = Vector3.new(523, 7, -6),
+	["💊 Traphouse"] = Vector3.new(889, 6, -174),
+	["🔐 Secret Trap"] = Vector3.new(804, 4, -172),
+	["🏠 House"] = Vector3.new(87, 5, 233),
+	["🛡️ Safezone"] = Vector3.new(-104, 5, 270)
+}
+
+-- Create teleport buttons
+local function createButton(name, position)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(1, 0, 0, 28)
+	btn.Text = name
+	btn.Font = Enum.Font.Gotham
+	btn.TextSize = 14
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.BackgroundColor3 = Color3.fromRGB(45, 45, 65)
+	btn.BorderSizePixel = 0
+	btn.ZIndex = 2
+	Instance.new("UICorner", btn)
+	btn.Parent = buttonContainer
+
+	btn.MouseEnter:Connect(function()
+		btn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+	end)
+	btn.MouseLeave:Connect(function()
+		btn.BackgroundColor3 = Color3.fromRGB(45, 45, 65)
+	end)
+
+	btn.MouseButton1Click:Connect(function()
+		local char = player.Character or player.CharacterAdded:Wait()
+		local hrp = char:WaitForChild("HumanoidRootPart")
+		hrp.CFrame = CFrame.new(position)
+	end)
+end
+
+for name, pos in pairs(teleportLocations) do
+	createButton(name, pos)
+end
+
+-- Toggle teleport UI visibility
+local hidden = false
+toggleButton.MouseButton1Click:Connect(function()
+	hidden = not hidden
+	teleportFrame.Visible = not hidden
+end)
